@@ -6,93 +6,50 @@
 <title>Kvízový test</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --primary: #6366f1;
-    --primary-dark: #4f46e5;
-    --primary-light: #ede9fe;
-    --success: #10b981;
-    --success-light: #d1fae5;
-    --danger: #ef4444;
-    --danger-light: #fee2e2;
-    --warning-light: #fef9c3;
-    --gray-50: #f9fafb;
-    --gray-100: #f3f4f6;
-    --gray-200: #e5e7eb;
-    --gray-400: #9ca3af;
-    --gray-500: #6b7280;
-    --gray-700: #374151;
-    --gray-900: #111827;
-    --radius: 12px;
-    --shadow: 0 4px 24px rgba(0,0,0,0.09);
+    --primary: #6366f1; --primary-dark: #4f46e5; --primary-light: #ede9fe;
+    --success: #10b981; --success-light: #d1fae5;
+    --danger: #ef4444; --danger-light: #fee2e2;
+    --warning: #f59e0b; --warning-light: #fef9c3;
+    --gray-100: #f3f4f6; --gray-200: #e5e7eb; --gray-400: #9ca3af;
+    --gray-500: #6b7280; --gray-700: #374151; --gray-900: #111827;
+    --radius: 12px; --shadow: 0 4px 24px rgba(0,0,0,0.09);
   }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--gray-100); color: var(--gray-900); min-height: 100vh; }
 
-  body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: var(--gray-100);
-    color: var(--gray-900);
-    min-height: 100vh;
-  }
-
-  /* ── NAV ── */
-  .nav {
-    background: white;
-    border-bottom: 1px solid var(--gray-200);
-    padding: 0 24px;
-    display: flex;
-    align-items: center;
-    height: 56px;
-    gap: 4px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-  }
-  .nav-logo { font-weight: 800; font-size: 17px; color: var(--primary); margin-right: 16px; }
-  .nav-btn {
-    padding: 7px 14px; border-radius: 8px; border: none;
-    background: transparent; cursor: pointer; font-size: 14px;
-    font-weight: 600; color: var(--gray-500); transition: all .15s;
-    font-family: inherit;
-  }
+  /* NAV */
+  .nav { background: white; border-bottom: 1px solid var(--gray-200); padding: 0 20px; display: flex; align-items: center; height: 56px; gap: 4px; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .nav-logo { font-weight: 800; font-size: 17px; color: var(--primary); margin-right: 12px; }
+  .nav-btn { padding: 7px 13px; border-radius: 8px; border: none; background: transparent; cursor: pointer; font-size: 14px; font-weight: 600; color: var(--gray-500); transition: all .15s; font-family: inherit; }
   .nav-btn:hover { background: var(--gray-100); color: var(--gray-900); }
   .nav-btn.active { background: var(--primary-light); color: var(--primary); }
+  .nav-spacer { flex: 1; }
+  .nav-lock { width: 34px; height: 34px; border-radius: 8px; border: none; background: transparent; cursor: pointer; font-size: 17px; color: var(--gray-400); transition: all .15s; display: flex; align-items: center; justify-content: center; }
+  .nav-lock:hover { background: var(--gray-100); color: var(--gray-700); }
+  .nav-lock.unlocked { color: var(--primary); background: var(--primary-light); }
+  .badge-count { background: var(--primary); color: white; border-radius: 99px; font-size: 11px; font-weight: 700; padding: 2px 7px; margin-left: 5px; }
 
-  /* ── SCREENS ── */
+  /* LAYOUT */
   .screen { display: none; }
   .screen.visible { display: block; }
-
-  /* ── CONTAINER ── */
   .container { max-width: 620px; margin: 0 auto; padding: 28px 20px; }
-  .container-wide { max-width: 860px; margin: 0 auto; padding: 28px 20px; }
+  .container-wide { max-width: 880px; margin: 0 auto; padding: 28px 20px; }
+  .card { background: white; border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); margin-bottom: 16px; }
 
-  /* ── CARD ── */
-  .card {
-    background: white; border-radius: var(--radius);
-    padding: 28px; box-shadow: var(--shadow);
-    margin-bottom: 16px;
-  }
+  /* TYPE */
+  h1 { font-size: 24px; font-weight: 800; }
+  h2 { font-size: 19px; font-weight: 700; }
+  h3 { font-size: 15px; font-weight: 700; margin-bottom: 11px; }
+  .subtitle { color: var(--gray-500); font-size: 15px; margin-top: 5px; }
 
-  /* ── TYPOGRAPHY ── */
-  h1 { font-size: 24px; font-weight: 800; color: var(--gray-900); }
-  h2 { font-size: 20px; font-weight: 700; color: var(--gray-900); }
-  h3 { font-size: 16px; font-weight: 700; color: var(--gray-900); margin-bottom: 12px; }
-  .subtitle { color: var(--gray-500); font-size: 15px; margin-top: 6px; }
-  .label { font-size: 13px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: .6px; }
-
-  /* ── BUTTONS ── */
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-    padding: 11px 20px; border-radius: 10px; border: none;
-    font-size: 15px; font-weight: 700; cursor: pointer;
-    font-family: inherit; transition: all .15s; text-decoration: none;
-  }
+  /* BUTTONS */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 11px 20px; border-radius: 10px; border: none; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all .15s; }
   .btn-primary { background: linear-gradient(135deg, var(--primary), #8b5cf6); color: white; box-shadow: 0 3px 10px rgba(99,102,241,.35); }
   .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 5px 16px rgba(99,102,241,.4); }
   .btn-success { background: linear-gradient(135deg, var(--success), #059669); color: white; }
   .btn-outline { background: white; color: var(--primary); border: 2px solid var(--primary); }
   .btn-outline:hover { background: var(--primary-light); }
-  .btn-danger { background: var(--danger-light); color: var(--danger); border: none; }
+  .btn-danger { background: var(--danger-light); color: var(--danger); }
   .btn-danger:hover { background: #fecaca; }
   .btn-ghost { background: var(--gray-100); color: var(--gray-700); }
   .btn-ghost:hover { background: var(--gray-200); }
@@ -100,176 +57,114 @@
   .btn-sm { padding: 6px 12px; font-size: 13px; border-radius: 7px; }
   .btn:disabled { opacity: .4; cursor: not-allowed; transform: none !important; }
 
-  /* ── FORM ── */
-  .field { margin-bottom: 16px; }
-  .field label { display: block; font-size: 14px; font-weight: 600; color: var(--gray-700); margin-bottom: 6px; }
-  .field input[type=text], .field input[type=number], .field textarea, .field select {
-    width: 100%; padding: 10px 12px; border: 2px solid var(--gray-200);
-    border-radius: 8px; font-size: 15px; font-family: inherit;
-    outline: none; transition: border-color .15s; background: white;
-  }
+  /* FORM */
+  .field { margin-bottom: 15px; }
+  .field label { display: block; font-size: 13px; font-weight: 700; color: var(--gray-700); margin-bottom: 5px; text-transform: uppercase; letter-spacing: .4px; }
+  .field input, .field textarea, .field select { width: 100%; padding: 10px 12px; border: 2px solid var(--gray-200); border-radius: 8px; font-size: 15px; font-family: inherit; outline: none; transition: border-color .15s; background: white; }
   .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--primary); }
-  .field textarea { resize: vertical; min-height: 72px; }
+  .field textarea { resize: vertical; min-height: 70px; }
   .field .hint { font-size: 12px; color: var(--gray-400); margin-top: 4px; }
+  .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width:480px){ .settings-grid { grid-template-columns: 1fr; } }
 
-  /* ── PROGRESS BAR ── */
-  .progress-wrap { margin-bottom: 20px; }
-  .progress-meta { display: flex; justify-content: space-between; font-size: 13px; color: var(--gray-500); margin-bottom: 6px; }
+  /* PROGRESS */
+  .progress-wrap { margin-bottom: 18px; }
+  .progress-meta { display: flex; justify-content: space-between; font-size: 13px; color: var(--gray-500); margin-bottom: 5px; }
   .progress-track { background: var(--gray-200); border-radius: 99px; height: 7px; }
-  .progress-fill {
-    background: linear-gradient(90deg, var(--primary), #8b5cf6);
-    height: 100%; border-radius: 99px; transition: width .4s ease;
-  }
+  .progress-fill { background: linear-gradient(90deg, var(--primary), #8b5cf6); height: 100%; border-radius: 99px; transition: width .4s ease; }
 
-  /* ── OPTION BUTTON ── */
-  .option-btn {
-    display: flex; align-items: center; gap: 12px;
-    width: 100%; padding: 12px 16px; margin-bottom: 9px;
-    background: white; border: 2px solid var(--gray-200);
-    border-radius: 10px; color: var(--gray-900);
-    cursor: pointer; text-align: left; font-size: 15px;
-    font-family: inherit; transition: all .15s;
-  }
+  /* TIMER */
+  .timer-bar-wrap { margin-bottom: 14px; }
+  .timer-bar-track { background: var(--gray-200); border-radius: 99px; height: 5px; }
+  .timer-bar-fill { height: 100%; border-radius: 99px; transition: width 1s linear, background .5s; }
+  .timer-label { font-size: 13px; font-weight: 700; text-align: right; margin-bottom: 4px; }
+  .timer-label.warning { color: var(--warning); }
+  .timer-label.danger { color: var(--danger); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+
+  /* OPTIONS */
+  .option-btn { display: flex; align-items: center; gap: 12px; width: 100%; padding: 11px 15px; margin-bottom: 8px; background: white; border: 2px solid var(--gray-200); border-radius: 10px; color: var(--gray-900); cursor: pointer; text-align: left; font-size: 15px; font-family: inherit; transition: all .15s; }
   .option-btn:hover:not(.disabled) { border-color: var(--primary); background: var(--primary-light); }
   .option-btn.selected { background: var(--primary-light); border-color: var(--primary); color: #3730a3; }
   .option-btn.correct { background: var(--success-light); border-color: var(--success); color: #065f46; }
   .option-btn.wrong { background: var(--danger-light); border-color: var(--danger); color: #7f1d1d; }
-  .option-btn.missed { background: var(--warning-light); border-color: #fbbf24; color: #78350f; }
+  .option-btn.missed { background: var(--warning-light); border-color: var(--warning); color: #78350f; }
   .option-btn.disabled { cursor: default; }
-  .option-letter {
-    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
-    background: var(--gray-200); color: var(--gray-500);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 13px;
-  }
+  .option-letter { width: 29px; height: 29px; border-radius: 50%; flex-shrink: 0; background: var(--gray-200); color: var(--gray-500); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
   .option-btn.selected .option-letter { background: var(--primary); color: white; }
   .option-btn.correct .option-letter { background: var(--success); color: white; }
   .option-btn.wrong .option-letter { background: var(--danger); color: white; }
 
-  /* ── TOPIC BADGE ── */
-  .topic-badge {
-    display: inline-block; font-size: 11px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: .7px;
-    color: var(--primary); background: var(--primary-light);
-    padding: 3px 10px; border-radius: 99px; margin-bottom: 10px;
-  }
+  .topic-badge { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px; color: var(--primary); background: var(--primary-light); padding: 3px 10px; border-radius: 99px; margin-bottom: 9px; }
+  .multi-hint { font-size: 13px; color: #7c3aed; font-style: italic; margin-bottom: 16px; }
 
-  /* ── EXPLANATION BOX ── */
-  .explain-box {
-    background: #f0f9ff; border: 1px solid #bae6fd;
-    border-radius: 10px; padding: 12px 16px;
-    font-size: 14px; color: #0c4a6e; margin-top: 16px; line-height: 1.5;
-  }
+  /* RESULTS */
+  .results-hero { background: linear-gradient(135deg, var(--primary), #8b5cf6); border-radius: 16px; padding: 30px; text-align: center; color: white; margin-bottom: 22px; }
+  .results-hero .big-emoji { font-size: 50px; line-height: 1; margin-bottom: 8px; }
+  .results-hero .score { font-size: 40px; font-weight: 900; }
+  .results-hero .score-sub { font-size: 15px; opacity: .85; margin-top: 3px; }
+  .results-hero .score-msg { font-size: 14px; opacity: .75; margin-top: 5px; }
+  .results-hero.passed { background: linear-gradient(135deg, #059669, #10b981); }
+  .results-hero.failed { background: linear-gradient(135deg, #dc2626, #ef4444); }
 
-  /* ── RESULTS HERO ── */
-  .results-hero {
-    background: linear-gradient(135deg, var(--primary), #8b5cf6);
-    border-radius: 16px; padding: 32px; text-align: center;
-    color: white; margin-bottom: 24px;
-  }
-  .results-hero .big-emoji { font-size: 52px; line-height: 1; margin-bottom: 10px; }
-  .results-hero .score { font-size: 42px; font-weight: 900; }
-  .results-hero .score-sub { font-size: 16px; opacity: .85; margin-top: 4px; }
-  .results-hero .score-msg { font-size: 15px; opacity: .75; margin-top: 6px; }
+  .cert-box { background: white; border: 2px solid var(--success); border-radius: 14px; padding: 20px; margin-bottom: 16px; text-align: center; }
+  .cert-box .cert-icon { font-size: 36px; margin-bottom: 6px; }
+  .cert-box p { color: var(--gray-700); font-size: 14px; margin-bottom: 14px; }
 
-  /* ── RESULT CARD ── */
-  .result-card {
-    background: white; border-radius: var(--radius);
-    padding: 20px; margin-bottom: 14px;
-    border: 2px solid var(--gray-200);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-  }
+  .result-card { background: white; border-radius: var(--radius); padding: 18px; margin-bottom: 12px; border: 2px solid var(--gray-200); }
   .result-card.pass { border-color: var(--success); }
   .result-card.fail { border-color: var(--danger); }
-  .result-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
-  .result-icon {
-    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 700;
-  }
+  .result-header { display: flex; align-items: flex-start; gap: 11px; margin-bottom: 12px; }
+  .result-icon { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
   .result-icon.pass { background: var(--success); color: white; }
   .result-icon.fail { background: var(--danger); color: white; }
-  .result-meta { font-size: 12px; color: var(--gray-400); margin-bottom: 3px; }
-  .result-question { font-weight: 600; font-size: 15px; color: var(--gray-900); }
+  .result-meta { font-size: 11px; color: var(--gray-400); margin-bottom: 2px; }
+  .result-question { font-weight: 600; font-size: 14px; }
+  .explain-box { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 9px; padding: 10px 14px; font-size: 13px; color: #0c4a6e; margin-top: 10px; line-height: 1.5; }
 
-  /* ── EDITOR ── */
-  .q-list-item {
-    background: white; border: 1px solid var(--gray-200);
-    border-radius: 10px; padding: 14px 16px; margin-bottom: 8px;
-    display: flex; align-items: flex-start; gap: 12px;
-    cursor: pointer; transition: border-color .15s;
-  }
+  /* EDITOR */
+  .editor-panel { background: white; border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); margin-bottom: 18px; border: 2px solid var(--primary); }
+  .q-list-item { background: white; border: 1px solid var(--gray-200); border-radius: 10px; padding: 13px 15px; margin-bottom: 7px; display: flex; align-items: flex-start; gap: 11px; cursor: pointer; transition: border-color .15s; }
   .q-list-item:hover { border-color: var(--primary); }
   .q-list-item.editing { border-color: var(--primary); background: var(--primary-light); }
-  .q-num { font-size: 12px; font-weight: 700; color: var(--gray-400); min-width: 24px; }
+  .q-num { font-size: 12px; font-weight: 700; color: var(--gray-400); min-width: 22px; }
   .q-text { flex: 1; font-size: 14px; color: var(--gray-700); line-height: 1.4; }
   .q-topic-sm { font-size: 11px; color: var(--primary); font-weight: 700; margin-top: 2px; }
-  .q-actions { display: flex; gap: 6px; flex-shrink: 0; }
-
-  .opt-editor-row {
-    display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
-  }
-  .opt-letter-badge {
-    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
-    background: var(--gray-200); color: var(--gray-500);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 13px; cursor: pointer; transition: all .15s;
-  }
+  .q-actions { display: flex; gap: 5px; flex-shrink: 0; }
+  .opt-editor-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+  .opt-letter-badge { width: 29px; height: 29px; border-radius: 50%; flex-shrink: 0; background: var(--gray-200); color: var(--gray-500); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; cursor: pointer; transition: all .15s; }
   .opt-letter-badge.correct-opt { background: var(--success); color: white; }
   .opt-letter-badge:hover { background: var(--primary); color: white; }
   .opt-input { flex: 1; }
   .opt-input input { width: 100%; padding: 8px 10px; border: 1.5px solid var(--gray-200); border-radius: 7px; font-size: 14px; font-family: inherit; outline: none; }
   .opt-input input:focus { border-color: var(--primary); }
-
   .correct-hint { font-size: 12px; color: var(--success); margin-top: -4px; margin-bottom: 8px; }
-
-  .editor-panel {
-    background: white; border-radius: var(--radius);
-    padding: 24px; box-shadow: var(--shadow); margin-bottom: 20px;
-    border: 2px solid var(--primary);
-  }
-
-  .empty-state {
-    text-align: center; padding: 40px 20px; color: var(--gray-400);
-  }
+  .empty-state { text-align: center; padding: 40px 20px; color: var(--gray-400); }
   .empty-state .empty-icon { font-size: 40px; margin-bottom: 10px; }
+  .info-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--primary-light); color: #4c1d95; border-radius: 99px; font-size: 13px; padding: 6px 14px; font-weight: 600; margin-bottom: 18px; }
 
-  .badge-count {
-    background: var(--primary); color: white;
-    border-radius: 99px; font-size: 11px; font-weight: 700;
-    padding: 2px 8px; margin-left: 6px;
-  }
+  /* INTRO HERO */
+  .intro-hero { background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%); border-radius: 18px; padding: 34px 28px; text-align: center; color: white; margin-bottom: 22px; }
+  .intro-hero h1 { color: white; font-size: 26px; }
+  .intro-hero .subtitle { color: rgba(255,255,255,.8); }
 
-  /* ── INTRO ── */
-  .intro-hero {
-    background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
-    border-radius: 18px; padding: 36px 32px; text-align: center; color: white; margin-bottom: 24px;
-  }
-  .intro-hero h1 { color: white; font-size: 28px; }
-  .intro-hero .subtitle { color: rgba(255,255,255,.8); font-size: 16px; margin-top: 8px; }
+  /* MODAL */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 999; padding: 20px; }
+  .modal-overlay.hidden { display: none; }
+  .modal-box { background: white; border-radius: 16px; padding: 30px; max-width: 380px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.25); text-align: center; }
+  .modal-box h2 { margin-bottom: 6px; }
+  .modal-sub { color: var(--gray-500); font-size: 14px; margin-bottom: 22px; }
+  .modal-actions { display: flex; gap: 10px; margin-top: 18px; }
+  .modal-error { color: var(--danger); font-size: 13px; margin-top: 7px; min-height: 16px; }
 
-  .settings-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-  .settings-row label { font-size: 14px; font-weight: 600; color: var(--gray-700); flex: 1; }
-  .settings-row input[type=number] {
-    width: 70px; padding: 8px 10px; border: 2px solid var(--gray-200);
-    border-radius: 8px; font-size: 15px; text-align: center; outline: none;
-    font-family: inherit;
-  }
-  .settings-row input:focus { border-color: var(--primary); }
+  /* TIMEOUT OVERLAY */
+  .timeout-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 200; }
+  .timeout-overlay.hidden { display: none; }
+  .timeout-box { background: white; border-radius: 18px; padding: 36px; max-width: 360px; width: 90%; text-align: center; }
+  .timeout-box .t-icon { font-size: 52px; margin-bottom: 10px; }
 
-  .info-pill {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: #ede9fe; color: #4c1d95; border-radius: 99px;
-    font-size: 13px; padding: 6px 14px; font-weight: 600; margin-bottom: 20px;
-  }
-
-  .divider { height: 1px; background: var(--gray-200); margin: 20px 0; }
-
-  @media (max-width: 500px) {
-    .nav-logo { font-size: 15px; }
-    .card { padding: 20px; }
-    .intro-hero { padding: 24px 20px; }
-  }
+  .divider { height: 1px; background: var(--gray-200); margin: 18px 0; }
+  .pwd-section { background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: 10px; padding: 18px; margin-top: 14px; }
 </style>
 </head>
 <body>
@@ -278,55 +173,96 @@
 <nav class="nav">
   <span class="nav-logo">🎓 Kvíz</span>
   <button class="nav-btn active" id="nav-test" onclick="showScreen('test')">Test</button>
-  <button class="nav-btn" id="nav-editor" onclick="showScreen('editor')">Otázky <span class="badge-count" id="q-count">0</span></button>
+  <button class="nav-btn" id="nav-editor" onclick="requireAdmin()" style="display:none">Otázky <span class="badge-count" id="q-count">0</span></button>
+  <div class="nav-spacer"></div>
+  <button class="nav-lock" id="nav-lock-btn" onclick="onLockClick()" title="Administrátor">🔒</button>
 </nav>
 
-<!-- ═══════════════════════════════════════════ -->
-<!-- SCREEN: TEST                               -->
-<!-- ═══════════════════════════════════════════ -->
+<!-- PASSWORD MODAL -->
+<div class="modal-overlay hidden" id="pwd-modal">
+  <div class="modal-box">
+    <div style="font-size:34px;margin-bottom:8px">🔐</div>
+    <h2>Administrátor</h2>
+    <p class="modal-sub">Zadejte heslo pro přístup k editoru otázek.</p>
+    <div class="field" style="text-align:left">
+      <label>Heslo</label>
+      <input type="password" id="pwd-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkPassword()">
+    </div>
+    <div class="modal-error" id="pwd-error"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost btn-full" onclick="closePwdModal()">Zrušit</button>
+      <button class="btn btn-primary btn-full" onclick="checkPassword()">Odemknout</button>
+    </div>
+  </div>
+</div>
+
+<!-- TIMEOUT OVERLAY -->
+<div class="timeout-overlay hidden" id="timeout-overlay">
+  <div class="timeout-box">
+    <div class="t-icon">⏰</div>
+    <h2 style="margin-bottom:8px">Čas vypršel!</h2>
+    <p style="color:var(--gray-500);font-size:14px;margin-bottom:22px">Časový limit testu byl překročen. Test byl automaticky ukončen a vyhodnocen.</p>
+    <button class="btn btn-primary btn-full" onclick="finishTimeout()">Zobrazit výsledky</button>
+  </div>
+</div>
+
+<!-- ═══════════════ SCREEN: TEST ═══════════════ -->
 <div id="screen-test" class="screen visible">
 
   <!-- INTRO -->
   <div id="view-intro" class="container">
     <div class="intro-hero">
-      <div style="font-size:48px;margin-bottom:10px">📝</div>
+      <div style="font-size:46px;margin-bottom:8px">📝</div>
       <h1>Kvízový test</h1>
-      <p class="subtitle">Náhodný výběr otázek · Více správných odpovědí · Podrobné vyhodnocení</p>
+      <p class="subtitle">Náhodný výběr · Více správných odpovědí · Podrobné vyhodnocení</p>
     </div>
 
     <div class="card">
+      <h3>Vaše jméno</h3>
+      <div class="field">
+        <input type="text" id="student-name" placeholder="Jméno a příjmení" autocomplete="name">
+        <div class="hint">Jméno bude uvedeno na potvrzení o úspěšném absolvování.</div>
+      </div>
+
+      <div class="divider"></div>
       <h3>Nastavení testu</h3>
-      <div class="settings-row">
-        <label for="q-per-test">Počet otázek v testu</label>
-        <input type="number" id="q-per-test" value="5" min="1">
+      <div class="settings-grid">
+        <div class="field">
+          <label>Počet otázek</label>
+          <input type="number" id="q-per-test" value="10" min="1">
+          <div class="hint">Dostupných: <span id="total-q">0</span></div>
+        </div>
+        <div class="field">
+          <label>Časový limit (min)</label>
+          <input type="number" id="time-limit" value="15" min="0">
+          <div class="hint">0 = bez limitu</div>
+        </div>
       </div>
-      <div style="font-size:13px;color:var(--gray-400);margin-bottom:18px">
-        Dostupných otázek v databázi: <strong id="total-q">0</strong>. Každé spuštění vybere jinou kombinaci.
-      </div>
-
       <div class="info-pill">✦ U otázky s více správnými odpověďmi to bude naznačeno</div>
-
-      <button class="btn btn-primary btn-full" onclick="startQuiz()" id="btn-start">Spustit test →</button>
+      <button class="btn btn-primary btn-full" onclick="startQuiz()">Spustit test →</button>
     </div>
   </div>
 
   <!-- QUIZ -->
   <div id="view-quiz" class="container" style="display:none">
     <div class="card">
+      <div id="timer-bar-wrap" class="timer-bar-wrap" style="display:none">
+        <div class="timer-label" id="timer-label">15:00</div>
+        <div class="timer-bar-track"><div class="timer-bar-fill" id="timer-bar-fill" style="width:100%;background:var(--success)"></div></div>
+      </div>
       <div class="progress-wrap">
         <div class="progress-meta">
-          <span id="q-progress-text">Otázka 1 z 5</span>
+          <span id="q-progress-text">Otázka 1 z 10</span>
           <span id="q-progress-pct">0%</span>
         </div>
         <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
       </div>
       <div class="topic-badge" id="q-topic"></div>
       <h2 id="q-text" style="margin-bottom:6px;line-height:1.4"></h2>
-      <div id="q-multi-hint" style="font-size:13px;color:#7c3aed;font-style:italic;margin-bottom:18px"></div>
+      <div class="multi-hint" id="q-multi-hint"></div>
       <div id="q-options"></div>
-      <div id="q-explain" class="explain-box" style="display:none"></div>
-      <div style="display:flex;gap:10px;margin-top:20px">
-        <button class="btn btn-primary btn-full" id="btn-submit" onclick="submitAnswer()">Potvrdit odpověď</button>
+      <div style="display:flex;gap:10px;margin-top:18px">
+        <button class="btn btn-primary btn-full" id="btn-submit" onclick="submitAnswer()" disabled>Potvrdit odpověď</button>
         <button class="btn btn-success btn-full" id="btn-next" onclick="nextQuestion()" style="display:none">Další →</button>
       </div>
     </div>
@@ -334,12 +270,19 @@
 
   <!-- RESULTS -->
   <div id="view-results" class="container" style="display:none">
-    <div class="results-hero">
+    <div class="results-hero" id="results-hero">
       <div class="big-emoji" id="res-emoji">🎉</div>
-      <div class="score" id="res-score">5 / 5</div>
-      <div class="score-sub" id="res-pct">100%</div>
+      <div class="score" id="res-score"></div>
+      <div class="score-sub" id="res-pct"></div>
       <div class="score-msg" id="res-msg"></div>
     </div>
+
+    <div class="cert-box" id="cert-box" style="display:none">
+      <div class="cert-icon">🏆</div>
+      <p id="cert-text"></p>
+      <button class="btn btn-success" onclick="downloadCert()">⬇ Stáhnout potvrzení</button>
+    </div>
+
     <div id="res-cards"></div>
     <div style="display:flex;gap:10px;margin-bottom:40px">
       <button class="btn btn-primary" style="flex:1" onclick="startQuiz()">🔄 Nový test</button>
@@ -349,504 +292,600 @@
 
 </div>
 
-<!-- ═══════════════════════════════════════════ -->
-<!-- SCREEN: EDITOR                             -->
-<!-- ═══════════════════════════════════════════ -->
+<!-- ═══════════════ SCREEN: EDITOR ═══════════════ -->
 <div id="screen-editor" class="screen">
   <div class="container-wide">
 
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
-      <div>
-        <h1>Editor otázek</h1>
-        <p class="subtitle">Přidávejte, upravujte a mažte otázky. Data se ukládají v prohlížeči.</p>
-      </div>
-      <div style="display:flex;gap:8px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px">
+      <div><h1>Editor otázek</h1><p class="subtitle">Přidávejte a upravujte otázky. Data se ukládají v prohlížeči.</p></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
         <button class="btn btn-ghost btn-sm" onclick="exportJSON()">⬇ Export JSON</button>
         <button class="btn btn-ghost btn-sm" onclick="document.getElementById('import-file').click()">⬆ Import JSON</button>
         <input type="file" id="import-file" accept=".json" style="display:none" onchange="importJSON(this)">
+        <button class="btn btn-ghost btn-sm" onclick="showChangePwd()">🔑 Změnit heslo</button>
+        <button class="btn btn-ghost btn-sm" onclick="showAdminSettings()">⚙ Nastavení testu</button>
         <button class="btn btn-primary btn-sm" onclick="openNewEditor()">+ Přidat otázku</button>
       </div>
     </div>
 
-    <!-- EDITOR PANEL -->
+    <!-- ADMIN SETTINGS -->
+    <div id="admin-settings-panel" style="display:none" class="editor-panel">
+      <h3>Globální nastavení testu</h3>
+      <div class="settings-grid">
+        <div class="field">
+          <label>Výchozí počet otázek</label>
+          <input type="number" id="admin-q-count" value="10" min="1">
+        </div>
+        <div class="field">
+          <label>Výchozí časový limit (min)</label>
+          <input type="number" id="admin-time" value="15" min="0">
+          <div class="hint">0 = bez limitu</div>
+        </div>
+        <div class="field">
+          <label>Hranice úspěšnosti (%)</label>
+          <input type="number" id="admin-pass" value="80" min="1" max="100">
+        </div>
+        <div class="field">
+          <label>Název testu / organizace</label>
+          <input type="text" id="admin-title" placeholder="např. Bezpečnost práce">
+        </div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-primary" onclick="saveAdminSettings()">💾 Uložit nastavení</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('admin-settings-panel').style.display='none'">Zrušit</button>
+      </div>
+    </div>
+
+    <!-- CHANGE PASSWORD -->
+    <div id="change-pwd-panel" style="display:none" class="editor-panel">
+      <h3>Změna hesla</h3>
+      <div class="field"><label>Nové heslo</label><input type="password" id="new-pwd" placeholder="Nové heslo"></div>
+      <div class="field"><label>Potvrdit heslo</label><input type="password" id="new-pwd2" placeholder="Zopakujte heslo"></div>
+      <div class="modal-error" id="pwd-change-error"></div>
+      <div style="display:flex;gap:10px;margin-top:8px">
+        <button class="btn btn-primary" onclick="saveNewPassword()">Uložit heslo</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('change-pwd-panel').style.display='none'">Zrušit</button>
+      </div>
+    </div>
+
+    <!-- QUESTION EDITOR -->
     <div id="editor-panel" style="display:none" class="editor-panel">
       <h3 id="editor-title">Nová otázka</h3>
-
+      <div class="field"><label>Téma / Předmět</label><input type="text" id="ed-topic" placeholder="např. Biologie"></div>
+      <div class="field"><label>Text otázky</label><textarea id="ed-question" rows="3" placeholder="Text otázky…"></textarea></div>
       <div class="field">
-        <label>Téma / Předmět</label>
-        <input type="text" id="ed-topic" placeholder="např. Biologie, Matematika…">
-      </div>
-      <div class="field">
-        <label>Text otázky</label>
-        <textarea id="ed-question" placeholder="Napište sem text otázky…" rows="3"></textarea>
-      </div>
-
-      <div class="field">
-        <label>Možnosti odpovědí <span style="font-weight:400;color:var(--gray-400)">(klikněte na písmeno = označíte jako správnou)</span></label>
-        <div id="ed-options">
-          <!-- generated by JS -->
-        </div>
+        <label>Možnosti odpovědí <span style="font-weight:400;color:var(--gray-400)">(klikněte na písmeno = správná odpověď)</span></label>
+        <div id="ed-options"></div>
         <div class="correct-hint" id="correct-hint"></div>
         <button class="btn btn-ghost btn-sm" onclick="addOption()" id="btn-add-opt">+ Přidat možnost</button>
       </div>
-
-      <div class="field">
-        <label>Vysvětlení správné odpovědi</label>
-        <textarea id="ed-explanation" placeholder="Proč je tato odpověď správná? Co si student má zapamatovat?" rows="3"></textarea>
-      </div>
-
+      <div class="field"><label>Vysvětlení správné odpovědi</label><textarea id="ed-explanation" rows="3" placeholder="Proč je tato odpověď správná?"></textarea></div>
       <div style="display:flex;gap:10px;margin-top:4px">
-        <button class="btn btn-primary" onclick="saveQuestion()">💾 Uložit otázku</button>
+        <button class="btn btn-primary" onclick="saveQuestion()">💾 Uložit</button>
         <button class="btn btn-ghost" onclick="closeEditor()">Zrušit</button>
-        <button class="btn btn-danger" id="btn-delete-q" onclick="deleteCurrentQuestion()" style="margin-left:auto;display:none">🗑 Smazat</button>
+        <button class="btn btn-danger btn-sm" id="btn-delete-q" onclick="deleteCurrentQuestion()" style="margin-left:auto;display:none">🗑 Smazat</button>
       </div>
     </div>
 
-    <!-- QUESTION LIST -->
-    <div id="q-list">
-      <div class="empty-state">
-        <div class="empty-icon">📋</div>
-        <div>Zatím žádné otázky.<br>Klikněte na <strong>+ Přidat otázku</strong>.</div>
-      </div>
-    </div>
-
+    <div id="q-list"></div>
   </div>
 </div>
 
 <script>
-// ════════════════════════════════════════════
-// DATA & STORAGE
-// ════════════════════════════════════════════
+// ══════════════════════════════════════
+// STORAGE & STATE
+// ══════════════════════════════════════
+const STORAGE_KEY   = 'kviz_questions_v1';
+const PWD_KEY       = 'kviz_admin_pwd_v1';
+const SETTINGS_KEY  = 'kviz_settings_v1';
+const DEFAULT_PWD   = 'admin123';
 
-const STORAGE_KEY = 'kviz_questions_v1';
+let questions     = [];
+let adminUnlocked = false;
+let settings      = { qCount: 10, timeLimit: 15, passPercent: 80, testTitle: '' };
 
-let questions = [];
+// Quiz runtime
+let quizQuestions = [], quizIdx = 0, quizAnswers = {}, selectedOpts = [], timerInterval = null, timerSecsLeft = 0, timerTotal = 0;
 
-function loadQuestions() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) questions = JSON.parse(raw);
-  } catch(e) { questions = []; }
-  if (!questions.length) questions = getSampleQuestions();
-  saveQuestions();
+// Editor
+let editingId = null, edOptions = [];
+
+// ══════════════════════════════════════
+// INIT
+// ══════════════════════════════════════
+function init() {
+  if (!localStorage.getItem(PWD_KEY)) localStorage.setItem(PWD_KEY, DEFAULT_PWD);
+  loadSettings();
+  loadQuestions();
 }
 
-function saveQuestions() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(questions));
+// ══════════════════════════════════════
+// SETTINGS
+// ══════════════════════════════════════
+function loadSettings() {
+  try { const s = JSON.parse(localStorage.getItem(SETTINGS_KEY)); if (s) settings = { ...settings, ...s }; } catch(e){}
+  applySettingsToForm();
+}
+function saveSettings() { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); }
+function applySettingsToForm() {
+  document.getElementById('q-per-test').value  = settings.qCount;
+  document.getElementById('time-limit').value  = settings.timeLimit;
+}
+function showAdminSettings() {
+  document.getElementById('admin-settings-panel').style.display = '';
+  document.getElementById('admin-q-count').value = settings.qCount;
+  document.getElementById('admin-time').value    = settings.timeLimit;
+  document.getElementById('admin-pass').value    = settings.passPercent;
+  document.getElementById('admin-title').value   = settings.testTitle;
+  document.getElementById('admin-settings-panel').scrollIntoView({behavior:'smooth'});
+}
+function saveAdminSettings() {
+  settings.qCount       = parseInt(document.getElementById('admin-q-count').value) || 10;
+  settings.timeLimit    = parseInt(document.getElementById('admin-time').value)    || 0;
+  settings.passPercent  = parseInt(document.getElementById('admin-pass').value)    || 80;
+  settings.testTitle    = document.getElementById('admin-title').value.trim();
+  saveSettings();
+  applySettingsToForm();
+  document.getElementById('admin-settings-panel').style.display = 'none';
+  alert('✅ Nastavení uloženo.');
+}
+
+// ══════════════════════════════════════
+// DATA
+// ══════════════════════════════════════
+function loadQuestions() {
+  try { const r = localStorage.getItem(STORAGE_KEY); if (r) questions = JSON.parse(r); } catch(e){ questions = []; }
+  if (!questions.length) { questions = getSampleQuestions(); saveQuestions(); }
   updateQCount();
 }
-
+function saveQuestions() { localStorage.setItem(STORAGE_KEY, JSON.stringify(questions)); updateQCount(); }
 function updateQCount() {
   document.getElementById('q-count').textContent = questions.length;
   document.getElementById('total-q').textContent = questions.length;
 }
+function nextId() { return questions.length ? Math.max(...questions.map(q=>q.id))+1 : 1; }
 
 function getSampleQuestions() {
   return [
-    { id: 1, topic: "Geografie", question: "Která města jsou hlavními městy členských států EU?", options: [{id:"a",text:"Berlín"},{id:"b",text:"Oslo"},{id:"c",text:"Varšava"},{id:"d",text:"Bern"}], correct: ["a","c"], explanation: "Berlín je hlavním městem Německa a Varšava Polska — obě jsou členy EU. Oslo (Norsko) a Bern (Švýcarsko) v EU nejsou." },
-    { id: 2, topic: "Biologie", question: "Které z následujících jsou savci?", options: [{id:"a",text:"Delfín"},{id:"b",text:"Žralok"},{id:"c",text:"Netopýr"},{id:"d",text:"Tučňák"}], correct: ["a","c"], explanation: "Delfín a netopýr jsou savci — teplokrevní, živí mláďata mlékem. Žralok je ryba, tučňák pták." },
-    { id: 3, topic: "Historie", question: "Ve kterém roce skončila 2. světová válka?", options: [{id:"a",text:"1943"},{id:"b",text:"1945"},{id:"c",text:"1944"},{id:"d",text:"1946"}], correct: ["b"], explanation: "2. světová válka skončila v roce 1945 — v Evropě 8. května, v Pacifiku 2. září kapitulací Japonska." },
-    { id: 4, topic: "Matematika", question: "Která čísla jsou prvočísla?", options: [{id:"a",text:"2"},{id:"b",text:"9"},{id:"c",text:"13"},{id:"d",text:"1"}], correct: ["a","c"], explanation: "Prvočísla jsou dělitelná pouze 1 a sebou samým. 2 a 13 jsou prvočísla. 9 = 3×3. Číslo 1 se za prvočíslo nepovažuje." },
-    { id: 5, topic: "Informatika", question: "Které z následujících jsou programovací jazyky?", options: [{id:"a",text:"Python"},{id:"b",text:"HTML"},{id:"c",text:"JavaScript"},{id:"d",text:"CSS"}], correct: ["a","c"], explanation: "Python a JavaScript jsou programovací jazyky. HTML je značkovací jazyk a CSS jazyk pro stylování." },
+    {id:1,topic:"Geografie",question:"Která města jsou hlavními městy členských států EU?",options:[{id:"a",text:"Berlín"},{id:"b",text:"Oslo"},{id:"c",text:"Varšava"},{id:"d",text:"Bern"}],correct:["a","c"],explanation:"Berlín je hlavním městem Německa a Varšava Polska — obě jsou členy EU. Oslo (Norsko) a Bern (Švýcarsko) v EU nejsou."},
+    {id:2,topic:"Biologie",question:"Které z následujících jsou savci?",options:[{id:"a",text:"Delfín"},{id:"b",text:"Žralok"},{id:"c",text:"Netopýr"},{id:"d",text:"Tučňák"}],correct:["a","c"],explanation:"Delfín a netopýr jsou savci. Žralok je ryba, tučňák pták."},
+    {id:3,topic:"Historie",question:"Ve kterém roce skončila 2. světová válka?",options:[{id:"a",text:"1943"},{id:"b",text:"1945"},{id:"c",text:"1944"},{id:"d",text:"1946"}],correct:["b"],explanation:"2. světová válka skončila v roce 1945 — v Evropě 8. května, v Pacifiku 2. září."},
+    {id:4,topic:"Matematika",question:"Která čísla jsou prvočísla?",options:[{id:"a",text:"2"},{id:"b",text:"9"},{id:"c",text:"13"},{id:"d",text:"1"}],correct:["a","c"],explanation:"Prvočísla jsou dělitelná pouze 1 a sebou samým. 9=3×3, číslo 1 není prvočíslo."},
+    {id:5,topic:"Informatika",question:"Které z následujících jsou programovací jazyky?",options:[{id:"a",text:"Python"},{id:"b",text:"HTML"},{id:"c",text:"JavaScript"},{id:"d",text:"CSS"}],correct:["a","c"],explanation:"Python a JavaScript jsou programovací jazyky. HTML je značkovací jazyk, CSS jazyk pro stylování."},
   ];
 }
 
-function nextId() {
-  return questions.length ? Math.max(...questions.map(q => q.id)) + 1 : 1;
+// ══════════════════════════════════════
+// ADMIN / LOCK
+// ══════════════════════════════════════
+function onLockClick() {
+  if (adminUnlocked) {
+    adminUnlocked = false;
+    document.getElementById('nav-lock-btn').textContent = '🔒';
+    document.getElementById('nav-lock-btn').classList.remove('unlocked');
+    document.getElementById('nav-editor').style.display = 'none';
+    showScreen('test');
+  } else { openPwdModal(); }
 }
-
-// ════════════════════════════════════════════
-// NAVIGATION
-// ════════════════════════════════════════════
-
-function showScreen(name) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('visible'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('screen-' + name).classList.add('visible');
-  document.getElementById('nav-' + name).classList.add('active');
-  if (name === 'editor') renderQList();
+function openPwdModal() {
+  document.getElementById('pwd-modal').classList.remove('hidden');
+  document.getElementById('pwd-input').value = '';
+  document.getElementById('pwd-error').textContent = '';
+  setTimeout(()=>document.getElementById('pwd-input').focus(), 80);
 }
-
-// ════════════════════════════════════════════
-// QUIZ LOGIC
-// ════════════════════════════════════════════
-
-let quizQuestions = [];
-let quizIdx = 0;
-let quizAnswers = {};
-let selectedOpts = [];
-let submitted = false;
-
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length-1; i>0; i--) {
-    const j = Math.floor(Math.random()*(i+1));
-    [a[i],a[j]] = [a[j],a[i]];
+function closePwdModal() { document.getElementById('pwd-modal').classList.add('hidden'); }
+function checkPassword() {
+  const val = document.getElementById('pwd-input').value;
+  if (val === (localStorage.getItem(PWD_KEY)||DEFAULT_PWD)) {
+    adminUnlocked = true; closePwdModal();
+    document.getElementById('nav-lock-btn').textContent = '🔓';
+    document.getElementById('nav-lock-btn').classList.add('unlocked');
+    document.getElementById('nav-editor').style.display = '';
+    showScreen('editor');
+  } else {
+    document.getElementById('pwd-error').textContent = 'Nesprávné heslo.';
+    document.getElementById('pwd-input').select();
   }
+}
+function requireAdmin() { if (adminUnlocked) showScreen('editor'); else openPwdModal(); }
+function showChangePwd() {
+  document.getElementById('change-pwd-panel').style.display = '';
+  document.getElementById('new-pwd').value = '';
+  document.getElementById('new-pwd2').value = '';
+  document.getElementById('pwd-change-error').textContent = '';
+  document.getElementById('change-pwd-panel').scrollIntoView({behavior:'smooth'});
+}
+function saveNewPassword() {
+  const p1 = document.getElementById('new-pwd').value;
+  const p2 = document.getElementById('new-pwd2').value;
+  if (!p1) { document.getElementById('pwd-change-error').textContent = 'Zadejte heslo.'; return; }
+  if (p1 !== p2) { document.getElementById('pwd-change-error').textContent = 'Hesla se neshodují.'; return; }
+  localStorage.setItem(PWD_KEY, p1);
+  document.getElementById('change-pwd-panel').style.display = 'none';
+  alert('✅ Heslo bylo změněno.');
+}
+
+// ══════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('visible'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('visible');
+  document.getElementById('nav-'+name).classList.add('active');
+  if (name==='editor') renderQList();
+}
+function goIntro() {
+  stopTimer();
+  document.getElementById('view-intro').style.display='';
+  document.getElementById('view-quiz').style.display='none';
+  document.getElementById('view-results').style.display='none';
+}
+
+// ══════════════════════════════════════
+// TIMER
+// ══════════════════════════════════════
+function startTimer(minutes) {
+  timerTotal = minutes * 60;
+  timerSecsLeft = timerTotal;
+  document.getElementById('timer-bar-wrap').style.display = '';
+  updateTimerDisplay();
+  timerInterval = setInterval(()=>{
+    timerSecsLeft--;
+    updateTimerDisplay();
+    if (timerSecsLeft <= 0) { clearInterval(timerInterval); showTimeout(); }
+  }, 1000);
+}
+function stopTimer() { clearInterval(timerInterval); timerInterval = null; }
+function updateTimerDisplay() {
+  const m = Math.floor(timerSecsLeft/60), s = timerSecsLeft%60;
+  const label = document.getElementById('timer-label');
+  label.textContent = `⏱ ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  const pct = (timerSecsLeft/timerTotal)*100;
+  const fill = document.getElementById('timer-bar-fill');
+  fill.style.width = pct+'%';
+  if (pct > 50) { fill.style.background='var(--success)'; label.className='timer-label'; }
+  else if (pct > 20) { fill.style.background='var(--warning)'; label.className='timer-label warning'; }
+  else { fill.style.background='var(--danger)'; label.className='timer-label danger'; }
+}
+function showTimeout() {
+  document.getElementById('timeout-overlay').classList.remove('hidden');
+}
+function finishTimeout() {
+  document.getElementById('timeout-overlay').classList.add('hidden');
+  // mark unanswered questions
+  quizQuestions.forEach(q=>{ if (!quizAnswers[q.id]) quizAnswers[q.id]=[]; });
+  showResults();
+}
+
+// ══════════════════════════════════════
+// SHUFFLE
+// ══════════════════════════════════════
+function shuffle(arr) {
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
   return a;
 }
 
-function goIntro() {
-  document.getElementById('view-intro').style.display = '';
-  document.getElementById('view-quiz').style.display = 'none';
-  document.getElementById('view-results').style.display = 'none';
-}
-
+// ══════════════════════════════════════
+// QUIZ
+// ══════════════════════════════════════
 function startQuiz() {
-  if (!questions.length) {
-    alert('Nejprve přidejte otázky v záložce Otázky.');
-    return;
-  }
-  const n = parseInt(document.getElementById('q-per-test').value) || 5;
-  quizQuestions = shuffle(questions).slice(0, Math.min(n, questions.length));
-  quizIdx = 0;
-  quizAnswers = {};
-  document.getElementById('view-intro').style.display = 'none';
-  document.getElementById('view-quiz').style.display = '';
-  document.getElementById('view-results').style.display = 'none';
+  if (!questions.length) { alert('Nejprve přidejte otázky v editoru.'); return; }
+  const n = Math.max(1, parseInt(document.getElementById('q-per-test').value)||settings.qCount);
+  const timeMins = parseInt(document.getElementById('time-limit').value)||0;
+
+  // shuffle questions AND options within each question
+  quizQuestions = shuffle(questions).slice(0, Math.min(n, questions.length)).map(q => ({
+    ...q,
+    options: shuffle(q.options)
+  }));
+
+  quizIdx=0; quizAnswers={};
+  stopTimer();
+  document.getElementById('timer-bar-wrap').style.display='none';
+  document.getElementById('timeout-overlay').classList.add('hidden');
+  document.getElementById('view-intro').style.display='none';
+  document.getElementById('view-quiz').style.display='';
+  document.getElementById('view-results').style.display='none';
   renderQuestion();
+  if (timeMins > 0) startTimer(timeMins);
 }
 
 function renderQuestion() {
   const q = quizQuestions[quizIdx];
   const total = quizQuestions.length;
-  const pct = Math.round((quizIdx / total) * 100);
+  const pct = Math.round((quizIdx/total)*100);
   selectedOpts = [];
-  submitted = false;
 
-  document.getElementById('q-progress-text').textContent = `Otázka ${quizIdx+1} z ${total}`;
-  document.getElementById('q-progress-pct').textContent = pct + '%';
-  document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('q-topic').textContent = q.topic || '';
-  document.getElementById('q-text').textContent = q.question;
-  document.getElementById('q-multi-hint').textContent = q.correct.length > 1
-    ? `✦ Vyberte ${q.correct.length} správné odpovědi`
-    : '✦ Vyberte jednu správnou odpověď';
-  document.getElementById('q-explain').style.display = 'none';
-  document.getElementById('btn-submit').style.display = '';
-  document.getElementById('btn-next').style.display = 'none';
+  document.getElementById('q-progress-text').textContent=`Otázka ${quizIdx+1} z ${total}`;
+  document.getElementById('q-progress-pct').textContent=pct+'%';
+  document.getElementById('progress-fill').style.width=pct+'%';
+  document.getElementById('q-topic').textContent=q.topic||'';
+  document.getElementById('q-text').textContent=q.question;
+  document.getElementById('q-multi-hint').textContent = q.correct.length>1
+    ? `✦ Vyberte ${q.correct.length} správné odpovědi` : '✦ Vyberte jednu správnou odpověď';
+  document.getElementById('btn-submit').style.display='';
+  document.getElementById('btn-submit').disabled=true;
+  document.getElementById('btn-next').style.display='none';
 
-  const optsEl = document.getElementById('q-options');
-  optsEl.innerHTML = '';
-  q.options.forEach(opt => {
-    const btn = document.createElement('button');
-    btn.className = 'option-btn';
-    btn.dataset.id = opt.id;
-    btn.innerHTML = `<span class="option-letter">${opt.id.toUpperCase()}</span>${esc(opt.text)}`;
-    btn.onclick = () => toggleOpt(opt.id, q.correct.length > 1, btn);
+  const optsEl=document.getElementById('q-options');
+  optsEl.innerHTML='';
+  q.options.forEach(opt=>{
+    const btn=document.createElement('button');
+    btn.className='option-btn';
+    btn.dataset.id=opt.id;
+    btn.innerHTML=`<span class="option-letter">${opt.id.toUpperCase()}</span>${esc(opt.text)}`;
+    btn.onclick=()=>toggleOpt(opt.id, q.correct.length>1, btn);
     optsEl.appendChild(btn);
   });
-
-  document.getElementById('btn-submit').disabled = true;
 }
 
 function toggleOpt(id, multi, btn) {
-  if (submitted) return;
   if (multi) {
-    if (selectedOpts.includes(id)) {
-      selectedOpts = selectedOpts.filter(x => x !== id);
-      btn.classList.remove('selected');
-      btn.querySelector('.option-letter').style.background = '';
-      btn.querySelector('.option-letter').style.color = '';
-    } else {
-      selectedOpts.push(id);
-      btn.classList.add('selected');
-    }
+    if (selectedOpts.includes(id)){ selectedOpts=selectedOpts.filter(x=>x!==id); btn.classList.remove('selected'); }
+    else { selectedOpts.push(id); btn.classList.add('selected'); }
   } else {
-    document.querySelectorAll('#q-options .option-btn').forEach(b => {
-      b.classList.remove('selected');
-    });
-    selectedOpts = [id];
-    btn.classList.add('selected');
+    document.querySelectorAll('#q-options .option-btn').forEach(b=>b.classList.remove('selected'));
+    selectedOpts=[id]; btn.classList.add('selected');
   }
-  document.getElementById('btn-submit').disabled = selectedOpts.length === 0;
+  document.getElementById('btn-submit').disabled=selectedOpts.length===0;
 }
 
 function submitAnswer() {
-  const q = quizQuestions[quizIdx];
-  submitted = true;
-  quizAnswers[q.id] = [...selectedOpts];
-
-  document.querySelectorAll('#q-options .option-btn').forEach(btn => {
-    const id = btn.dataset.id;
-    const isCorrect = q.correct.includes(id);
-    const userPicked = selectedOpts.includes(id);
-    btn.classList.remove('selected');
-    btn.classList.add('disabled');
-    if (isCorrect && userPicked)   btn.classList.add('correct');
-    else if (!isCorrect && userPicked) btn.classList.add('wrong');
-    else if (isCorrect && !userPicked) btn.classList.add('missed');
-  });
-
-  const isRight = q.correct.every(c => selectedOpts.includes(c)) && selectedOpts.every(u => q.correct.includes(u));
-  const explEl = document.getElementById('q-explain');
-  explEl.innerHTML = `<strong>💡 ${isRight ? 'Správně! ' : 'Chyba. '}</strong>${esc(q.explanation)}`;
-  explEl.style.display = '';
-  document.getElementById('btn-submit').style.display = 'none';
-  document.getElementById('btn-next').style.display = '';
-  document.getElementById('btn-next').textContent = quizIdx + 1 < quizQuestions.length ? 'Další →' : 'Zobrazit výsledky →';
+  const q=quizQuestions[quizIdx];
+  quizAnswers[q.id]=[...selectedOpts];
+  // no per-question feedback — just advance
+  document.getElementById('btn-submit').style.display='none';
+  document.getElementById('btn-next').style.display='';
+  document.getElementById('btn-next').textContent = quizIdx+1<quizQuestions.length ? 'Další →' : 'Zobrazit výsledky →';
+  // visually lock options but no color reveal
+  document.querySelectorAll('#q-options .option-btn').forEach(b=>{ b.classList.add('disabled'); b.onclick=null; });
 }
 
 function nextQuestion() {
-  if (quizIdx + 1 < quizQuestions.length) {
-    quizIdx++;
-    renderQuestion();
-  } else {
-    showResults();
-  }
+  if (quizIdx+1<quizQuestions.length){ quizIdx++; renderQuestion(); }
+  else { stopTimer(); showResults(); }
 }
 
+// ══════════════════════════════════════
+// RESULTS
+// ══════════════════════════════════════
 function showResults() {
-  document.getElementById('view-quiz').style.display = 'none';
-  document.getElementById('view-results').style.display = '';
+  stopTimer();
+  document.getElementById('view-quiz').style.display='none';
+  document.getElementById('view-results').style.display='';
 
-  let correct = 0;
-  quizQuestions.forEach(q => {
-    const ua = quizAnswers[q.id] || [];
-    if (q.correct.every(c => ua.includes(c)) && ua.every(u => q.correct.includes(u))) correct++;
+  let correct=0;
+  quizQuestions.forEach(q=>{
+    const ua=quizAnswers[q.id]||[];
+    if(q.correct.every(c=>ua.includes(c))&&ua.every(u=>q.correct.includes(u))) correct++;
   });
-  const total = quizQuestions.length;
-  const pct = Math.round((correct/total)*100);
+  const total=quizQuestions.length, pct=Math.round((correct/total)*100);
+  const passed=pct>=settings.passPercent;
+  const studentName=document.getElementById('student-name').value.trim()||'Student';
 
-  document.getElementById('res-emoji').textContent = pct >= 80 ? '🎉' : pct >= 50 ? '👍' : '📚';
-  document.getElementById('res-score').textContent = `${correct} / ${total}`;
-  document.getElementById('res-pct').textContent = pct + '% správně';
-  document.getElementById('res-msg').textContent = pct >= 80 ? 'Výborný výsledek!' : pct >= 50 ? 'Dobrý pokus — je co zlepšovat.' : 'Doporučujeme si látku zopakovat.';
+  const hero=document.getElementById('results-hero');
+  hero.className='results-hero '+(passed?'passed':'failed');
+  document.getElementById('res-emoji').textContent=passed?'🏆':pct>=50?'👍':'📚';
+  document.getElementById('res-score').textContent=`${correct} / ${total}`;
+  document.getElementById('res-pct').textContent=pct+'% správně';
+  document.getElementById('res-msg').textContent=passed
+    ? `Gratulujeme, ${studentName}! Test byl úspěšně splněn.`
+    : pct>=50 ? 'Dobrý pokus — je co zlepšovat.' : 'Doporučujeme si látku zopakovat.';
 
-  const cards = document.getElementById('res-cards');
-  cards.innerHTML = '<h3 style="margin-bottom:14px">Podrobné vyhodnocení</h3>';
-  quizQuestions.forEach((q, i) => {
-    const ua = new Set(quizAnswers[q.id] || []);
-    const ca = new Set(q.correct);
-    const pass = q.correct.every(c => ua.has(c)) && [...ua].every(u => ca.has(u));
+  // certificate
+  const certBox=document.getElementById('cert-box');
+  if (passed) {
+    certBox.style.display='';
+    document.getElementById('cert-text').textContent=
+      `${studentName} úspěšně absolvoval/a test${settings.testTitle?' „'+settings.testTitle+'"':''} s výsledkem ${pct}% (${correct}/${total} otázek).`;
+  } else { certBox.style.display='none'; }
 
-    let optHtml = '';
-    q.options.forEach(opt => {
-      const userP = ua.has(opt.id), corrP = ca.has(opt.id);
-      let bg='#f9fafb', color='#6b7280', prefix='';
-      if (corrP && userP)  { bg='#d1fae5'; color='#065f46'; prefix='✓ '; }
-      else if (corrP)      { bg='#fef9c3'; color='#78350f'; prefix='→ '; }
-      else if (userP)      { bg='#fee2e2'; color='#7f1d1d'; prefix='✗ '; }
-      optHtml += `<div style="padding:6px 11px;border-radius:7px;margin-bottom:5px;background:${bg};color:${color};font-size:14px"><strong>${opt.id.toUpperCase()}.</strong> ${prefix}${esc(opt.text)}</div>`;
+  // result cards with color reveal
+  const cards=document.getElementById('res-cards');
+  cards.innerHTML='<h3 style="margin-bottom:14px">Podrobné vyhodnocení</h3>';
+  quizQuestions.forEach((q,i)=>{
+    const ua=new Set(quizAnswers[q.id]||[]), ca=new Set(q.correct);
+    const pass=q.correct.every(c=>ua.has(c))&&[...ua].every(u=>ca.has(u));
+    let optHtml='';
+    q.options.forEach(opt=>{
+      const userP=ua.has(opt.id), corrP=ca.has(opt.id);
+      let bg='#f9fafb',color='#6b7280',prefix='';
+      if(corrP&&userP){bg='#d1fae5';color='#065f46';prefix='✓ ';}
+      else if(corrP){bg='#fef9c3';color='#78350f';prefix='→ ';}
+      else if(userP){bg='#fee2e2';color='#7f1d1d';prefix='✗ ';}
+      optHtml+=`<div style="padding:6px 11px;border-radius:7px;margin-bottom:5px;background:${bg};color:${color};font-size:13px"><strong>${opt.id.toUpperCase()}.</strong> ${prefix}${esc(opt.text)}</div>`;
     });
-
-    cards.innerHTML += `
+    cards.innerHTML+=`
       <div class="result-card ${pass?'pass':'fail'}">
         <div class="result-header">
           <div class="result-icon ${pass?'pass':'fail'}">${pass?'✓':'✗'}</div>
-          <div>
-            <div class="result-meta">Otázka ${i+1} · ${esc(q.topic||'')}</div>
-            <div class="result-question">${esc(q.question)}</div>
-          </div>
+          <div><div class="result-meta">Otázka ${i+1} · ${esc(q.topic||'')}</div><div class="result-question">${esc(q.question)}</div></div>
         </div>
         ${optHtml}
-        <div class="explain-box" style="margin-top:10px"><strong>💡 Vysvětlení:</strong> ${esc(q.explanation)}</div>
+        <div class="explain-box"><strong>💡 Vysvětlení:</strong> ${esc(q.explanation)}</div>
       </div>`;
   });
 }
 
-// ════════════════════════════════════════════
+// ══════════════════════════════════════
+// CERTIFICATE DOWNLOAD
+// ══════════════════════════════════════
+function downloadCert() {
+  const studentName = document.getElementById('student-name').value.trim() || 'Student';
+  const quizTotal   = quizQuestions.length;
+  let correct = 0;
+  quizQuestions.forEach(q=>{ const ua=quizAnswers[q.id]||[]; if(q.correct.every(c=>ua.includes(c))&&ua.every(u=>q.correct.includes(u))) correct++; });
+  const pct = Math.round((correct/quizTotal)*100);
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('cs-CZ',{day:'2-digit',month:'long',year:'numeric'});
+  const title = settings.testTitle || 'Kvízový test';
+
+  const html = `<!DOCTYPE html>
+<html lang="cs"><head><meta charset="UTF-8"><title>Potvrzení — ${esc(studentName)}</title>
+<style>
+  body { font-family: Georgia, serif; background: #f8f8f8; display:flex; align-items:center; justify-content:center; min-height:100vh; margin:0; }
+  .cert { background: white; border: 3px double #6366f1; border-radius: 18px; padding: 56px 60px; max-width: 680px; width:90%; text-align:center; box-shadow: 0 8px 40px rgba(0,0,0,.12); }
+  .cert-logo { font-size: 52px; margin-bottom: 10px; }
+  .cert-org { font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: #6366f1; margin-bottom: 28px; }
+  h1 { font-size: 28px; font-weight: normal; color: #1f2937; margin-bottom: 24px; }
+  .name { font-size: 36px; font-weight: bold; color: #4f46e5; margin: 16px 0; }
+  .body-text { font-size: 16px; color: #374151; line-height: 1.7; margin-bottom: 28px; }
+  .score-badge { display:inline-block; background: #d1fae5; color: #065f46; border-radius: 99px; padding: 8px 28px; font-size: 22px; font-weight: bold; margin-bottom: 28px; }
+  .date { font-size: 13px; color: #9ca3af; margin-top: 32px; }
+  .seal { font-size: 40px; margin-top: 16px; }
+  @media print { body{background:white;} .cert{box-shadow:none;border:3px double #6366f1;} }
+</style></head>
+<body><div class="cert">
+  <div class="cert-logo">🎓</div>
+  <div class="cert-org">${esc(title)}</div>
+  <h1>Potvrzení o absolvování testu</h1>
+  <p style="color:#6b7280;font-size:15px;margin-bottom:8px">Toto potvrzení náleží</p>
+  <div class="name">${esc(studentName)}</div>
+  <p class="body-text">úspěšně absolvoval/a test<br><strong>${esc(title)}</strong></p>
+  <div class="score-badge">Výsledek: ${pct}% (${correct}/${quizTotal})</div>
+  <div class="date">Datum: ${dateStr}</div>
+  <div class="seal">🏆</div>
+</div>
+<script>window.onload=()=>window.print()<\/script>
+</body></html>`;
+
+  const blob = new Blob([html], {type:'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `potvrzeni-${studentName.replace(/\s+/g,'-')}.html`;
+  a.click();
+}
+
+// ══════════════════════════════════════
 // EDITOR
-// ════════════════════════════════════════════
-
-let editingId = null;
-let edOptions = [];  // [{id, text, correct}]
-
+// ══════════════════════════════════════
 function renderQList() {
-  const el = document.getElementById('q-list');
-  if (!questions.length) {
-    el.innerHTML = '<div class="empty-state"><div class="empty-icon">📋</div><div>Zatím žádné otázky.<br>Klikněte na <strong>+ Přidat otázku</strong>.</div></div>';
+  const el=document.getElementById('q-list');
+  if(!questions.length){
+    el.innerHTML='<div class="empty-state"><div class="empty-icon">📋</div><div>Zatím žádné otázky.<br>Klikněte na <strong>+ Přidat otázku</strong>.</div></div>';
     return;
   }
-  el.innerHTML = questions.map((q, i) => {
-    const correctLabels = q.correct.map(c => c.toUpperCase()).join(', ');
-    return `
-      <div class="q-list-item ${editingId===q.id?'editing':''}" onclick="openEditor(${q.id})">
-        <div class="q-num">${i+1}.</div>
-        <div class="q-text">
-          ${esc(q.question)}
-          <div class="q-topic-sm">${esc(q.topic||'')} · správně: ${correctLabels}</div>
-        </div>
-        <div class="q-actions">
-          <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openEditor(${q.id})">✏️</button>
-          <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteQuestion(${q.id})">🗑</button>
-        </div>
-      </div>`;
-  }).join('');
+  el.innerHTML=questions.map((q,i)=>`
+    <div class="q-list-item ${editingId===q.id?'editing':''}" onclick="openEditor(${q.id})">
+      <div class="q-num">${i+1}.</div>
+      <div class="q-text">${esc(q.question)}<div class="q-topic-sm">${esc(q.topic||'')} · správně: ${q.correct.map(c=>c.toUpperCase()).join(', ')}</div></div>
+      <div class="q-actions">
+        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openEditor(${q.id})">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();deleteQuestion(${q.id})">🗑</button>
+      </div>
+    </div>`).join('');
 }
 
 function openNewEditor() {
-  editingId = null;
-  document.getElementById('editor-title').textContent = 'Nová otázka';
-  document.getElementById('ed-topic').value = '';
-  document.getElementById('ed-question').value = '';
-  document.getElementById('ed-explanation').value = '';
-  document.getElementById('btn-delete-q').style.display = 'none';
-  edOptions = [
-    {id:'a', text:'', correct:false},
-    {id:'b', text:'', correct:false},
-    {id:'c', text:'', correct:false},
-    {id:'d', text:'', correct:false},
-  ];
+  editingId=null;
+  document.getElementById('editor-title').textContent='Nová otázka';
+  document.getElementById('ed-topic').value='';
+  document.getElementById('ed-question').value='';
+  document.getElementById('ed-explanation').value='';
+  document.getElementById('btn-delete-q').style.display='none';
+  edOptions=[{id:'a',text:'',correct:false},{id:'b',text:'',correct:false},{id:'c',text:'',correct:false},{id:'d',text:'',correct:false}];
   renderEditorOptions();
-  document.getElementById('editor-panel').style.display = '';
+  document.getElementById('editor-panel').style.display='';
   document.getElementById('editor-panel').scrollIntoView({behavior:'smooth'});
   renderQList();
 }
 
 function openEditor(id) {
-  const q = questions.find(x => x.id === id);
-  if (!q) return;
-  editingId = id;
-  document.getElementById('editor-title').textContent = 'Upravit otázku';
-  document.getElementById('ed-topic').value = q.topic || '';
-  document.getElementById('ed-question').value = q.question;
-  document.getElementById('ed-explanation').value = q.explanation || '';
-  document.getElementById('btn-delete-q').style.display = '';
-  edOptions = q.options.map(o => ({ id: o.id, text: o.text, correct: q.correct.includes(o.id) }));
+  const q=questions.find(x=>x.id===id); if(!q) return;
+  editingId=id;
+  document.getElementById('editor-title').textContent='Upravit otázku';
+  document.getElementById('ed-topic').value=q.topic||'';
+  document.getElementById('ed-question').value=q.question;
+  document.getElementById('ed-explanation').value=q.explanation||'';
+  document.getElementById('btn-delete-q').style.display='';
+  edOptions=q.options.map(o=>({id:o.id,text:o.text,correct:q.correct.includes(o.id)}));
   renderEditorOptions();
-  document.getElementById('editor-panel').style.display = '';
+  document.getElementById('editor-panel').style.display='';
   document.getElementById('editor-panel').scrollIntoView({behavior:'smooth'});
   renderQList();
 }
 
-function closeEditor() {
-  editingId = null;
-  document.getElementById('editor-panel').style.display = 'none';
-  renderQList();
-}
+function closeEditor() { editingId=null; document.getElementById('editor-panel').style.display='none'; renderQList(); }
 
 function renderEditorOptions() {
-  const wrap = document.getElementById('ed-options');
-  wrap.innerHTML = '';
-  edOptions.forEach((opt, i) => {
-    const row = document.createElement('div');
-    row.className = 'opt-editor-row';
-    row.innerHTML = `
-      <div class="opt-letter-badge ${opt.correct?'correct-opt':''}" onclick="toggleCorrect(${i})" title="Kliknutím označíte jako správnou">${opt.id.toUpperCase()}</div>
-      <div class="opt-input"><input type="text" value="${esc(opt.text)}" placeholder="Text možnosti ${opt.id.toUpperCase()}" oninput="edOptions[${i}].text=this.value"></div>
-      ${edOptions.length > 2 ? `<button class="btn btn-danger btn-sm" onclick="removeOption(${i})">✕</button>` : ''}
-    `;
+  const wrap=document.getElementById('ed-options');
+  wrap.innerHTML='';
+  edOptions.forEach((opt,i)=>{
+    const row=document.createElement('div');
+    row.className='opt-editor-row';
+    row.innerHTML=`
+      <div class="opt-letter-badge ${opt.correct?'correct-opt':''}" onclick="toggleCorrect(${i})" title="Správná odpověď">${opt.id.toUpperCase()}</div>
+      <div class="opt-input"><input type="text" value="${esc(opt.text)}" placeholder="Možnost ${opt.id.toUpperCase()}" oninput="edOptions[${i}].text=this.value"></div>
+      ${edOptions.length>2?`<button class="btn btn-danger btn-sm" onclick="removeOption(${i})">✕</button>`:''}`;
     wrap.appendChild(row);
   });
   updateCorrectHint();
-  document.getElementById('btn-add-opt').style.display = edOptions.length >= 6 ? 'none' : '';
+  document.getElementById('btn-add-opt').style.display=edOptions.length>=6?'none':'';
 }
 
-function toggleCorrect(i) {
-  edOptions[i].correct = !edOptions[i].correct;
-  renderEditorOptions();
-}
-
-function removeOption(i) {
-  edOptions.splice(i, 1);
-  // re-assign ids
-  const ids = ['a','b','c','d','e','f'];
-  edOptions.forEach((o, idx) => o.id = ids[idx]);
-  renderEditorOptions();
-}
-
-function addOption() {
-  const ids = ['a','b','c','d','e','f'];
-  edOptions.push({ id: ids[edOptions.length], text: '', correct: false });
-  renderEditorOptions();
-}
-
-function updateCorrectHint() {
-  const cnt = edOptions.filter(o => o.correct).length;
-  const el = document.getElementById('correct-hint');
-  if (cnt === 0) el.textContent = 'Označte alespoň jednu správnou odpověď (klikněte na písmeno).';
-  else el.textContent = `✓ ${cnt} správná odpověď${cnt>1?'i/í':''}`;
+function toggleCorrect(i){ edOptions[i].correct=!edOptions[i].correct; renderEditorOptions(); }
+function removeOption(i){ edOptions.splice(i,1); ['a','b','c','d','e','f'].forEach((l,idx)=>{ if(edOptions[idx]) edOptions[idx].id=l; }); renderEditorOptions(); }
+function addOption(){ const ids=['a','b','c','d','e','f']; edOptions.push({id:ids[edOptions.length],text:'',correct:false}); renderEditorOptions(); }
+function updateCorrectHint(){
+  const cnt=edOptions.filter(o=>o.correct).length;
+  document.getElementById('correct-hint').textContent=cnt===0
+    ?'Označte alespoň jednu správnou odpověď (klikněte na písmeno).'
+    :`✓ ${cnt} správná odpověď${cnt>1?'i/í':''}`;
 }
 
 function saveQuestion() {
-  const topic = document.getElementById('ed-topic').value.trim();
-  const question = document.getElementById('ed-question').value.trim();
-  const explanation = document.getElementById('ed-explanation').value.trim();
-  const correct = edOptions.filter(o => o.correct).map(o => o.id);
-  const filledOpts = edOptions.filter(o => o.text.trim());
-
-  if (!question) { alert('Zadejte text otázky.'); return; }
-  if (filledOpts.length < 2) { alert('Přidejte alespoň 2 možnosti odpovědí.'); return; }
-  if (!correct.length) { alert('Označte alespoň jednu správnou odpověď.'); return; }
-  if (!explanation) { alert('Zadejte vysvětlení správné odpovědi.'); return; }
-
-  const qData = {
-    id: editingId || nextId(),
-    topic,
-    question,
-    options: filledOpts.map(o => ({ id: o.id, text: o.text.trim() })),
-    correct,
-    explanation,
-  };
-
-  if (editingId) {
-    const idx = questions.findIndex(x => x.id === editingId);
-    questions[idx] = qData;
-  } else {
-    questions.push(qData);
-  }
-
-  saveQuestions();
-  closeEditor();
-  renderQList();
+  const topic=document.getElementById('ed-topic').value.trim();
+  const question=document.getElementById('ed-question').value.trim();
+  const explanation=document.getElementById('ed-explanation').value.trim();
+  const correct=edOptions.filter(o=>o.correct).map(o=>o.id);
+  const filledOpts=edOptions.filter(o=>o.text.trim());
+  if(!question){alert('Zadejte text otázky.');return;}
+  if(filledOpts.length<2){alert('Přidejte alespoň 2 možnosti.');return;}
+  if(!correct.length){alert('Označte alespoň jednu správnou odpověď.');return;}
+  if(!explanation){alert('Zadejte vysvětlení.');return;}
+  const qData={id:editingId||nextId(),topic,question,options:filledOpts.map(o=>({id:o.id,text:o.text.trim()})),correct,explanation};
+  if(editingId){const idx=questions.findIndex(x=>x.id===editingId);questions[idx]=qData;}
+  else questions.push(qData);
+  saveQuestions(); closeEditor(); renderQList();
 }
 
-function deleteQuestion(id) {
-  if (!confirm('Opravdu smazat tuto otázku?')) return;
-  questions = questions.filter(x => x.id !== id);
-  saveQuestions();
-  if (editingId === id) closeEditor();
-  renderQList();
+function deleteQuestion(id){
+  if(!confirm('Opravdu smazat?')) return;
+  questions=questions.filter(x=>x.id!==id); saveQuestions();
+  if(editingId===id) closeEditor(); renderQList();
 }
+function deleteCurrentQuestion(){ if(editingId) deleteQuestion(editingId); }
 
-function deleteCurrentQuestion() {
-  if (editingId) deleteQuestion(editingId);
-}
-
-// ════════════════════════════════════════════
+// ══════════════════════════════════════
 // IMPORT / EXPORT
-// ════════════════════════════════════════════
-
-function exportJSON() {
-  const blob = new Blob([JSON.stringify(questions, null, 2)], {type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'kviz-otazky.json';
-  a.click();
+// ══════════════════════════════════════
+function exportJSON(){
+  const blob=new Blob([JSON.stringify(questions,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='kviz-otazky.json';a.click();
 }
-
-function importJSON(input) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    try {
-      const data = JSON.parse(e.target.result);
-      if (!Array.isArray(data)) throw new Error();
-      if (confirm(`Importovat ${data.length} otázek? Stávající otázky budou nahrazeny.`)) {
-        questions = data;
-        saveQuestions();
-        renderQList();
-      }
-    } catch { alert('Neplatný JSON soubor.'); }
+function importJSON(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      if(!Array.isArray(data)) throw new Error();
+      if(confirm(`Importovat ${data.length} otázek? Stávající budou nahrazeny.`)){ questions=data; saveQuestions(); renderQList(); }
+    }catch{alert('Neplatný JSON soubor.');}
   };
-  reader.readAsText(file);
-  input.value = '';
+  reader.readAsText(file); input.value='';
 }
 
-// ════════════════════════════════════════════
+// ══════════════════════════════════════
 // UTILS
-// ════════════════════════════════════════════
+// ══════════════════════════════════════
+function esc(str){ return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-function esc(str) {
-  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+document.getElementById('pwd-modal').addEventListener('click',function(e){ if(e.target===this) closePwdModal(); });
 
-// ════════════════════════════════════════════
-// INIT
-// ════════════════════════════════════════════
-loadQuestions();
+init();
 </script>
 </body>
 </html>
