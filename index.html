@@ -568,7 +568,7 @@ function submitAnswer() {
   quizAnswers[q.id]=[...selectedOpts];
   document.querySelectorAll('#q-options .option-btn').forEach(b=>{b.classList.add('disabled');b.onclick=null;});
   document.getElementById('btn-submit').disabled=true;
-  document.getElementById('btn-submit').textContent='Odpovězeno';
+  document.getElementById('btn-submit').textContent='Potvrdit odpověď';
 
   // auto-advance after short pause
   setTimeout(()=>{
