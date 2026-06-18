@@ -512,7 +512,15 @@ function shuffle(arr) { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=
 function startQuiz() {
   if(!questions.length){alert('Nejprve přidejte otázky v editoru.');return;}
   const n=Math.max(1,settings.qCount);
-  quizQuestions=shuffle(questions).slice(0,Math.min(n,questions.length)).map(q=>({...q,options:shuffle(q.options)}));
+  quizQuestions=shuffle(questions).slice(0,Math.min(n,questions.length)).map(q=>{
+    const ids=['a','b','c','d','e','f'];
+    const shuffledTexts=shuffle(q.options.map(o=>o.text));
+    const newOptions=shuffledTexts.map((text,i)=>({id:ids[i],text}));
+    const oldToText={};q.options.forEach(o=>oldToText[o.id]=o.text);
+    const correctTexts=new Set(q.correct.map(id=>oldToText[id]));
+    const newCorrect=newOptions.filter(o=>correctTexts.has(o.text)).map(o=>o.id);
+    return {...q,options:newOptions,correct:newCorrect};
+  });
   quizIdx=0; quizAnswers={};
   stopTimer();
   document.getElementById('timer-wrap').style.display='none';
