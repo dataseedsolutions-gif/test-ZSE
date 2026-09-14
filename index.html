@@ -514,6 +514,13 @@ function shuffle(arr) { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=
 
 // QUIZ
 function startQuiz() {
+  const nameVal = document.getElementById('student-name').value.trim();
+  if(!nameVal){
+    document.getElementById('student-name').focus();
+    document.getElementById('student-name').style.borderColor='var(--danger)';
+    setTimeout(()=>document.getElementById('student-name').style.borderColor='',2000);
+    return;
+  }
   if(!questions.length){alert('Nejprve přidejte otázky v editoru.');return;}
   const n=Math.max(1,settings.qCount);
   // Balanced topic mixing
