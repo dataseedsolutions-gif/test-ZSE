@@ -638,6 +638,9 @@ function showResults() {
     ?`${studentName} — test byl úspěšně splněn.`
     :pct>=50?'Dobrý pokus, ale je co zlepšovat.':'Doporučujeme si látku zopakovat.';
 
+  // Log to Google Sheets (async, non-blocking)
+  logResultToSheet(studentName, correct, total, passed);
+
   const certBox=document.getElementById('cert-box');
   if(passed){
     certBox.style.display='';
@@ -820,6 +823,76 @@ function deleteQuestion(id){
   if(editingId===id)closeEditor();renderQList();
 }
 function deleteCurrentQuestion(){if(editingId)deleteQuestion(editingId);}
+
+
+// ══════════════════════════════════════
+// GOOGLE SHEETS LOGGING
+// ══════════════════════════════════════
+const SHEET_ID = '1eQK7cGSXggU6sL6IefQs1S6O-rQANKWYjnrF2ioq1cw';
+const SA_EMAIL = 'kviz-zapis@crack-mariner-508608-r3.iam.gserviceaccount.com';
+const SA_KEY   = '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDXftv2Twc153CQ\no295Gz8WdpPuF6+nu6SGT58/AaDFFmpXDtY1ESVDYuhgrbFEVQ5KHNpaEY5ZH6cs\n2xFMiqie8gSz03xiEnkqZXl57dUhL5oPI3heR9S7FNe7gijnqqI06EQtqvhVLxY3\ncH17R3knPHZSTiJDZQUZYr/dnfjkbWQ4yenhSMeulrVGqQFb0+gYCW/JV4XOJzUP\nSD4e4mPyj8uY7wU/Tw2q5+Mlc/iEC1t4cNKxEPRPzSF3iiB4rwTNtij/UzMUVRJ6\nPmC9XIgDmH6ECXt65mAKynZoLPlvc+YNWXMhndBA9k99hDUTcnDKyYGA1opLn//P\nd3MzmuRHAgMBAAECggEAIvYVaKYUpOWqCQVC+hJ2D0ZopJmaKWvTeujjDJ1OgHst\nAHfLP+vKsF6VFc5IMq5b9aEtuawcfJAalrfp3BGo3rSkF6qphN27Y6n35dS0ncAz\nzd3y0tTzifCNOYIZ8c/opg3CtegFhwhvIcpxyTTkzn1MMvkzLNzwUViIiUNuVFyw\nzagITRxlzXDVuEuXPrIDOhAgBLu3+Je/+LJ56Ycyt6kjnDJ5dxMvyc42DBsy+UbN\nJvywalrCleitPAIobraeMETXe4wtaSfZb/dV/l5hngTv6iqrzchQmoE2+S6k0NjM\nWK0mQQUDxxA1gsEk7MISIWdw1AAWE0Jh/93rC4KaCQKBgQDsTnSHkyMQAHFlv6ad\neEbYjxnBD3MKT9mMAjsnzAtW3N2YCjTHiJv4bFgmitZzXNzbN8YZ7JRmqJ2PS9cD\n8NTngTNnPxViyhaxgWway7d43rehwn5m+OXny+iCa7QYm3MwDxMnHQI3V6tUZEiV\nZ5ooCEoybp5LHY0scSryTQYxvwKBgQDpdGhhwpRanTEwWCjpoWGBzZiCZDuBFXRH\nTJRyNr1IXbPCiAtH336cNXjtXVIxY6s1zJhLBeAyrHC7dWDUTWpmIogVeEJRKrVa\niSg6wVMygPKuVTTJ1XAwt4NtQ+HRg+tl46hN9tRHnO7AbGpmuBy89/V2Nb9guR6z\nlJ5qf6jfeQKBgQDEBgz6jh7u3j8zNXlkdWrnqEWn9kXrDvQbBZrG16esZclYn1bL\nEtK3kEDLsC5XQnhfTXQC+1LbmhIh1brGpRgn9vCKPDVkXtnWY9Mmo0lOdgqEoE+0\n4dHtqCP3VJrwMrup6UdtEc5N1Gbmuc3QSkIB5WaPUV30V85NSI9ksmpqBwKBgQCw\nnALXaidnQaHTq+4PiKnGU+37Pq6RYdScl795hBW/6Ds0gEzga6BRtlYsY7vpZzg/\ns+7GWsSYMUH7XroJAiPq7la6v0aUNtYJjtdjU5uICmsNHaKYyiJciIghogf0w3LS\nmt5ZVNCU+JDZ+2qnGMOM5ZzJd7G3D3S9cEJD2R29KQKBgECOOgxgmaE+kSaQWpf0\n0sjLPnYwXiAWlFbZOwPwKK+yxO+nRIrhLL98aGcy+6KfYntXvCTDyJVVNwfBx0DH\nAeZvpLY6Lwm40supiz3r4CYjiTaqR3V48aJ28VinyruVTJrT/NNiLvBm4SocNyvM\nkD4wF6gLDn99/rKYEKjH34Fl\n-----END PRIVATE KEY-----\n';
+
+async function getAccessToken() {
+  const header = btoa(JSON.stringify({alg:'RS256',typ:'JWT'})).replace(/=/g,'').replace(/\+/g,'-').replace(/\//g,'_');
+  const now = Math.floor(Date.now()/1000);
+  const claim = btoa(JSON.stringify({
+    iss: SA_EMAIL,
+    scope: 'https://www.googleapis.com/auth/spreadsheets',
+    aud: 'https://oauth2.googleapis.com/token',
+    exp: now + 3600,
+    iat: now
+  })).replace(/=/g,'').replace(/\+/g,'-').replace(/\//g,'_');
+
+  const pemContents = SA_KEY
+    .replace('-----BEGIN PRIVATE KEY-----','')
+    .replace('-----END PRIVATE KEY-----','')
+    .replace(/\\n/g,'').replace(/\n/g,'').trim();
+  const binaryKey = Uint8Array.from(atob(pemContents), c => c.charCodeAt(0));
+  const cryptoKey = await crypto.subtle.importKey(
+    'pkcs8', binaryKey.buffer,
+    {name:'RSASSA-PKCS1-v1_5', hash:'SHA-256'},
+    false, ['sign']
+  );
+
+  const sigInput = header + '.' + claim;
+  const sigBuf = await crypto.subtle.sign(
+    'RSASSA-PKCS1-v1_5', cryptoKey,
+    new TextEncoder().encode(sigInput)
+  );
+  const sig = btoa(String.fromCharCode(...new Uint8Array(sigBuf))).replace(/=/g,'').replace(/\+/g,'-').replace(/\//g,'_');
+  const jwt = sigInput + '.' + sig;
+
+  const resp = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: {'Content-Type':'application/x-www-form-urlencoded'},
+    body: 'grant_type=urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer&assertion=' + jwt
+  });
+  const data = await resp.json();
+  return data.access_token;
+}
+
+async function logResultToSheet(studentName, correct, total, passed) {
+  try {
+    const token = await getAccessToken();
+    const now = new Date();
+    const date = now.toLocaleDateString('cs-CZ');
+    const time = now.toLocaleTimeString('cs-CZ', {hour:'2-digit',minute:'2-digit'});
+    const pct  = Math.round((correct/total)*100);
+    const row  = [date, time, studentName, pct+'%', correct, total, passed ? 'ANO' : 'NE'];
+
+    await fetch('https://sheets.googleapis.com/v4/spreadsheets/' + SHEET_ID + '/values/A1:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({values: [row]})
+    });
+    console.log('Vysledek zapsan do Google Sheets');
+  } catch(e) {
+    console.warn('Zapis do Sheets selhal:', e);
+  }
+}
 
 // IMPORT / EXPORT
 function exportJSON(){
